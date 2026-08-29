@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from "react";
 
 const ThemeToggle = () => {
-  const [darkMode, setDarkMode] = useState(true);
+  const [darkMode, setDarkMode] = useState(() => {
+    return document.documentElement.classList.contains("dark");
+  });
 
   useEffect(() => {
     document.documentElement.classList.toggle("dark", darkMode);
+
+    localStorage.setItem("theme", darkMode ? "dark" : "light");
   }, [darkMode]);
 
   const toggleTheme = () => {
@@ -19,11 +23,14 @@ const ThemeToggle = () => {
         fixed bottom-6 right-6 z-50
         flex h-14 w-14 items-center justify-center
         rounded-full
+
         border border-gray-300
         bg-white
         text-gray-900
+
         shadow-[0_8px_30px_rgba(0,0,0,0.15)]
         backdrop-blur-md
+
         transition-all duration-300
         hover:scale-105
         hover:border-gray-400
@@ -38,6 +45,7 @@ const ThemeToggle = () => {
       "
     >
       {darkMode ? (
+        /* Sun */
         <svg
           width="22"
           height="22"
@@ -61,6 +69,7 @@ const ThemeToggle = () => {
           />
         </svg>
       ) : (
+        /* Moon */
         <svg
           width="21"
           height="21"
