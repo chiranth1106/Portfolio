@@ -10,28 +10,35 @@ const Hero = () => {
     <section
       className="
         relative
-        min-h-screen
         flex
+        min-h-[calc(100svh-var(--header-height))]
+        w-full
         flex-col
         items-center
         justify-center
         overflow-hidden
-
         bg-transparent
+
+        py-12
+        sm:py-14
+        md:py-16
       "
     >
       {/* Welcome */}
       <div
         className="
           hero-welcome
-          mb-8
+          mb-6
+          px-4
           text-center
-          text-sm
+          text-[clamp(0.65rem,1.5vw,0.875rem)]
           font-medium
           uppercase
           tracking-[0.35em]
           text-gray-500
           cursor-default
+
+          sm:mb-8
 
           dark:text-gray-400
         "
@@ -43,9 +50,11 @@ const Hero = () => {
       <div
         className="
           flex
+          w-full
           items-center
           justify-center
-          gap-[clamp(0.5rem,2vw,2rem)]
+          gap-[clamp(0.2rem,2vw,2rem)]
+          px-[var(--page-padding)]
         "
       >
         {name.split("").map((letter, index) => {
@@ -78,84 +87,82 @@ const Hero = () => {
                 onMouseLeave={() => setHoveredIndex(null)}
                 style={{
                   transform: `
-          translateX(${translateX}px)
-          ${isHovered ? "translateY(-18px) scale(1.45)" : ""}
-        `,
+                    translateX(${translateX}px)
+                    ${isHovered ? "translateY(-18px) scale(1.45)" : ""}
+                  `,
                 }}
                 className={`
-        relative
-        inline-block
-        cursor-default
-        select-none
+                  relative
+                  inline-block
+                  cursor-default
+                  select-none
 
-        text-6xl
-        sm:text-8xl
-        lg:text-9xl
+                  text-[clamp(2.8rem,11vw,8rem)]
 
-        font-bold
-        tracking-tight
+                  font-bold
+                  tracking-tight
 
-        transition-all
-        duration-500
-        ease-[cubic-bezier(0.22,1,0.36,1)]
+                  transition-all
+                  duration-500
+                  ease-[cubic-bezier(0.22,1,0.36,1)]
 
-        ${
-          isHovered
-            ? `
-              bg-linear-to-b
-              from-white
-              via-blue-400
-              to-purple-500
-              bg-clip-text
-              text-transparent
+                  ${
+                    isHovered
+                      ? `
+                        bg-linear-to-b
+                        from-white
+                        via-blue-400
+                        to-purple-500
+                        bg-clip-text
+                        text-transparent
 
-              drop-shadow-[0_0_30px_rgba(59,130,246,0.7)]
-            `
-            : `
-              text-gray-900
-              dark:text-white
-            `
-        }
+                        drop-shadow-[0_0_30px_rgba(59,130,246,0.7)]
+                      `
+                      : `
+                        text-gray-900
+                        dark:text-white
+                      `
+                  }
 
-        ${
-          hoveredIndex !== null && !isHovered && distance === 1
-            ? `
-              drop-shadow-[0_0_18px_rgba(59,130,246,0.35)]
-            `
-            : ""
-        }
+                  ${
+                    hoveredIndex !== null && !isHovered && distance === 1
+                      ? `
+                        drop-shadow-[0_0_18px_rgba(59,130,246,0.35)]
+                      `
+                      : ""
+                  }
 
-        ${
-          hoveredIndex !== null && !isHovered && distance === 2
-            ? `
-              drop-shadow-[0_0_10px_rgba(139,92,246,0.18)]
-            `
-            : ""
-        }
-      `}
+                  ${
+                    hoveredIndex !== null && !isHovered && distance === 2
+                      ? `
+                        drop-shadow-[0_0_10px_rgba(139,92,246,0.18)]
+                      `
+                      : ""
+                  }
+                `}
               >
                 {/* Halo */}
                 <span
                   className={`
-          pointer-events-none
-          absolute
-          inset-0
-          -z-10
-          rounded-full
-          blur-2xl
-          transition-all
-          duration-500
+                    pointer-events-none
+                    absolute
+                    inset-0
+                    -z-10
+                    rounded-full
+                    blur-2xl
+                    transition-all
+                    duration-500
 
-          ${
-            isHovered
-              ? "scale-[1.8] opacity-70 bg-blue-500/20"
-              : distance === 1
-                ? "scale-[1.4] opacity-30 bg-blue-500/10"
-                : distance === 2
-                  ? "scale-[1.2] opacity-15 bg-purple-500/10"
-                  : "opacity-0"
-          }
-        `}
+                    ${
+                      isHovered
+                        ? "scale-[1.8] opacity-70 bg-blue-500/20"
+                        : distance === 1
+                          ? "scale-[1.4] opacity-30 bg-blue-500/10"
+                          : distance === 2
+                            ? "scale-[1.2] opacity-15 bg-purple-500/10"
+                            : "opacity-0"
+                    }
+                  `}
                 />
 
                 {letter}
@@ -166,18 +173,28 @@ const Hero = () => {
       </div>
 
       {/* Software Engineer Description */}
-      <div className="mt-8 max-w-2xl px-6 text-center">
+      <div
+        className="
+          mt-6
+          w-full
+          max-w-2xl
+          px-[var(--page-padding)]
+          text-center
+
+          sm:mt-8
+        "
+      >
         <h2
           className="
             hero-role
-            text-xl
+            text-[clamp(1rem,2.5vw,1.5rem)]
             font-medium
             italic
             uppercase
-            tracking-[0.25em]
+            tracking-[0.2em]
             text-gray-900
 
-            sm:text-2xl
+            sm:tracking-[0.25em]
 
             dark:text-white
             cursor-default
@@ -189,12 +206,14 @@ const Hero = () => {
         <p
           className="
             hero-description
-            mt-4
-            text-base
-            leading-7
+            mx-auto
+            mt-3
+            max-w-[680px]
+            text-[clamp(0.875rem,1.8vw,1.125rem)]
+            leading-6
             text-gray-500
 
-            sm:text-lg
+            sm:mt-4
             sm:leading-8
 
             dark:text-gray-400
@@ -209,14 +228,16 @@ const Hero = () => {
         <div
           className="
             hero-buttons
-            mt-8
+            mt-6
             flex
             flex-col
             items-center
             justify-center
-            gap-4
+            gap-3
 
+            sm:mt-8
             sm:flex-row
+            sm:gap-4
           "
         >
           {/* Tech Stack */}
@@ -225,6 +246,9 @@ const Hero = () => {
             className="
               group
               inline-flex
+              min-h-11
+              w-full
+              max-w-[180px]
               items-center
               justify-center
               gap-2
@@ -254,6 +278,8 @@ const Hero = () => {
 
               dark:hover:border-white
               dark:hover:shadow-white/10
+
+              sm:w-auto
             "
           >
             Tech Stack
@@ -274,6 +300,9 @@ const Hero = () => {
             className="
               group
               inline-flex
+              min-h-11
+              w-full
+              max-w-[180px]
               items-center
               justify-center
               gap-2
@@ -301,6 +330,8 @@ const Hero = () => {
               dark:text-white
 
               dark:hover:bg-white/10
+
+              sm:w-auto
             "
           >
             View Projects
@@ -316,6 +347,7 @@ const Hero = () => {
           </Link>
         </div>
       </div>
+
       {/* Minimal Scroll Indicator */}
       <div className="hero-scroll-indicator">
         <div className="hero-mouse">

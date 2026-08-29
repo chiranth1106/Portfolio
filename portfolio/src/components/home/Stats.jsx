@@ -39,33 +39,32 @@ const Stats = () => {
   ];
 
   /*
-    Card positions.
+    Responsive card positions.
 
-    Creates a symmetrical arch:
+    The cards remain in the same symmetrical arch,
+    but their horizontal positions are based on the
+    container width instead of fixed pixel values.
+  */
 
-              6+        10+
-           ╱                ╲
-        1+                    100%
-    */
   const positions = [
     {
-      x: "-195px",
-      y: "35px",
+      left: "10%",
+      y: "7%",
       rotate: "-13deg",
     },
     {
-      x: "-65px",
-      y: "5px",
+      left: "36.5%",
+      y: "0%",
       rotate: "-4deg",
     },
     {
-      x: "65px",
-      y: "5px",
+      left: "63.5%",
+      y: "0%",
       rotate: "4deg",
     },
     {
-      x: "195px",
-      y: "35px",
+      left: "90%",
+      y: "7%",
       rotate: "13deg",
     },
   ];
@@ -228,25 +227,36 @@ const Stats = () => {
         ref={sectionRef}
         className="
           relative
-          py-24
-          sm:py-32
+          w-full
+          overflow-hidden
+          py-(--section-padding)
         "
       >
-        <div className="mx-auto max-w-7xl px-6">
+        <div
+          className="
+            page-container
+          "
+        >
           {/* ========================================
               HEADING
           ======================================== */}
 
-          <div className="mb-14 text-center">
+          <div
+            className="
+              mb-[clamp(2.5rem,6vw,4rem)]
+              text-center
+            "
+          >
             <p
               className="
-                text-xs
+                cursor-default
+                text-[clamp(0.625rem,1.2vw,0.75rem)]
                 font-medium
                 uppercase
-                tracking-[0.35em]
+                tracking-[0.3em]
                 text-gray-500
+
                 dark:text-gray-400
-                cursor-default
               "
             >
               The Numbers
@@ -255,13 +265,13 @@ const Stats = () => {
             <h2
               className="
                 mt-3
-                text-3xl
+                cursor-default
+                text-[clamp(1.5rem,4vw,2.25rem)]
                 font-semibold
                 tracking-tight
                 text-gray-900
-                sm:text-4xl
+
                 dark:text-white
-                cursor-default
               "
             >
               A little about my journey
@@ -276,12 +286,9 @@ const Stats = () => {
             className="
               relative
               mx-auto
-
-              h-90
+              h-[clamp(260px,58vw,460px)]
               w-full
               max-w-225
-
-              sm:h-105
             "
           >
             {stats.map((stat, index) => {
@@ -295,14 +302,10 @@ const Stats = () => {
                   onMouseLeave={() => setHoveredIndex(null)}
                   className="
                     absolute
-                    left-1/2
                     top-1/2
 
-                    h-70
-                    w-50
-
-                    sm:h-87.5
-                    sm:w-62.5
+                    h-[clamp(190px,42vw,400px)]
+                    w-[clamp(135px,28vw,285px)]
 
                     cursor-pointer
 
@@ -311,22 +314,13 @@ const Stats = () => {
                     ease-[cubic-bezier(0.22,1,0.36,1)]
                   "
                   style={{
-                    /*
-                      Normal stacking:
+                    left: position.left,
 
-                      1+   = 4
-                      6+   = 3
-                      10+  = 2
-                      100% = 1
-
-                      So 1+ is naturally
-                      the front card.
-                    */
                     zIndex: isHovered ? 100 : stats.length - index,
 
                     transform: `
                       translate(-50%, -50%)
-                      translate(${position.x}, ${position.y})
+                      translateY(${position.y})
                       rotate(${isHovered ? "0deg" : position.rotate})
                       scale(${isHovered ? 1.08 : 1})
                     `,
@@ -343,8 +337,8 @@ const Stats = () => {
                     className={`
                       pointer-events-none
                       absolute
-                      -inset-6
-                      rounded-[30px]
+                      -inset-[clamp(12px,2vw,20px)]
+                      rounded-[clamp(18px,3vw,28px)]
                       blur-2xl
 
                       ${stat.glow}
@@ -370,7 +364,7 @@ const Stats = () => {
                       overflow-hidden
                       cursor-default
 
-                      rounded-[20px]
+                      rounded-[clamp(18px,2.5vw,20px)]
 
                       border
                       border-gray-300/80
@@ -387,10 +381,6 @@ const Stats = () => {
                       dark:shadow-[0_18px_45px_rgba(0,0,0,0.45)]
                     "
                     style={{
-                      /*
-                        Each card gets a slightly
-                        different shuffle timing.
-                      */
                       animationDelay: `${index * 90}ms`,
                     }}
                   >
@@ -402,9 +392,9 @@ const Stats = () => {
                       className="
                         pointer-events-none
                         absolute
-                        inset-3
+                        inset-[clamp(8px,1vw,12px)]
 
-                        rounded-[15px]
+                        rounded-[clamp(12px,2vw,15px)]
 
                         border
                         border-gray-200
@@ -420,8 +410,8 @@ const Stats = () => {
                     <div
                       className={`
                         absolute
-                        left-5
-                        top-4
+                        left-[clamp(12px,1.5vw,24px)]
+                        top-[clamp(10px,1.5vw,20px)]
 
                         flex
                         flex-col
@@ -429,18 +419,13 @@ const Stats = () => {
 
                         font-serif
 
-                        sm:left-6
-                        sm:top-5
-
                         ${stat.color}
                       `}
                     >
                       <span
                         className="
-                          text-xl
+                          text-[clamp(1rem,2.2vw,1.5rem)]
                           font-bold
-
-                          sm:text-2xl
                         "
                       >
                         {stat.value}
@@ -448,9 +433,7 @@ const Stats = () => {
 
                       <span
                         className="
-                          text-lg
-
-                          sm:text-xl
+                          text-[clamp(0.9rem,1.8vw,1.25rem)]
                         "
                       >
                         {stat.suit}
@@ -477,11 +460,9 @@ const Stats = () => {
                       <span
                         className="
                           font-serif
-                          text-6xl
+                          text-[clamp(2.2rem,7vw,4.5rem)]
                           font-bold
                           tracking-tight
-
-                          sm:text-7xl
                         "
                       >
                         {stat.value}
@@ -489,11 +470,8 @@ const Stats = () => {
 
                       <span
                         className="
-                          mt-2
-                          text-2xl
-
-                          sm:mt-4
-                          sm:text-3xl
+                          mt-[clamp(0.4rem,1vw,1rem)]
+                          text-[clamp(1.1rem,2.5vw,1.875rem)]
                         "
                       >
                         {stat.suit}
@@ -501,18 +479,14 @@ const Stats = () => {
 
                       <span
                         className="
-                          mt-4
-                          max-w-36.25
-
+                          mt-[clamp(0.75rem,1.5vw,1.5rem)]
+                          max-w-[75%]
                           text-center
-                          text-[9px]
+                          text-[clamp(0.45rem,0.8vw,0.625rem)]
                           font-semibold
-                          tracking-[0.18em]
+                          tracking-[0.14em]
 
                           text-gray-500
-
-                          sm:mt-6
-                          sm:text-[10px]
 
                           dark:text-gray-400
                         "
@@ -528,8 +502,8 @@ const Stats = () => {
                     <div
                       className={`
                         absolute
-                        bottom-4
-                        right-5
+                        bottom-[clamp(10px,1.5vw,20px)]
+                        right-[clamp(12px,1.5vw,24px)]
 
                         flex
                         rotate-180
@@ -538,18 +512,13 @@ const Stats = () => {
 
                         font-serif
 
-                        sm:bottom-5
-                        sm:right-6
-
                         ${stat.color}
                       `}
                     >
                       <span
                         className="
-                          text-xl
+                          text-[clamp(1rem,2.2vw,1.5rem)]
                           font-bold
-
-                          sm:text-2xl
                         "
                       >
                         {stat.value}
@@ -557,9 +526,7 @@ const Stats = () => {
 
                       <span
                         className="
-                          text-lg
-
-                          sm:text-xl
+                          text-[clamp(0.9rem,1.8vw,1.25rem)]
                         "
                       >
                         {stat.suit}
